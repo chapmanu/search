@@ -1,0 +1,365 @@
+PUT chapcrawl
+{
+    "mappings": {
+        "chap_1": {
+            "_id": {
+                "path": "meta_url" 
+            },
+            "properties": {
+                "meta_url": {
+                    "type" : "string",
+                    "index" : "not_analyzed"
+                }
+            }
+        }
+    },
+    "settings": {
+        "number_of_shards": 5, 
+        "analysis": {
+            "filter": {
+                "autocomplete_filter": { 
+                    "type":     "edge_ngram",
+                    "min_gram": 1,
+                    "max_gram": 20
+                }
+            },
+            "analyzer": {
+                "autocomplete": {
+                    "type":      "custom",
+                    "tokenizer": "standard",
+                    "filter": [
+                        "lowercase",
+                        "autocomplete_filter" 
+                    ]
+                }
+            }
+        }
+    }
+}
+
+PUT chapcrawl/chap_1/_mapping
+{
+    "chap_1" : {
+      "dynamic_templates" : [
+      {
+          "page_title" : {
+              "match" : "page_title",
+              "mapping" : {
+                  "type" : "string",
+                  "store" : "yes",
+                  "analyzer" : "autocomplete"
+              }
+          }
+      },
+      {
+          "meta_title" : {
+              "match" : "meta_title",
+              "mapping" : {
+                  "type" : "string",
+                  "store" : "yes",
+                  "analyzer" : "autocomplete"
+              }
+          }
+      },
+      {
+          "description" : {
+              "match" : "description",
+              "mapping" : {
+                  "type" : "string",
+                  "store" : "yes",
+                  "analyzer" : "autocomplete"
+              }
+          }
+      },
+      {
+        "url" : {
+          "match" : "url",
+          "mapping" : {
+            "type" : "string",
+            "store" : "yes",
+            "index" : "not_analyzed"
+          }
+        }
+      },
+      {
+        "method" : {
+          "match" : "method",
+          "mapping" : {
+            "type" : "string",
+            "store" : "yes",
+            "index" : "not_analyzed"
+          }
+        }
+      },
+      {
+        "charSet" : {
+          "match" : "charSet",
+          "mapping" : {
+            "type" : "string",
+            "store" : "yes",
+            "index" : "not_analyzed"
+          }
+        }
+      },
+      {
+        "mimeType" : {
+          "match" : "mimeType",
+          "mapping" : {
+            "type" : "string",
+            "store" : "yes",
+            "index" : "not_analyzed"
+          }
+        }
+      }
+    ]
+  }
+}
+
+
+PUT _river/chap_1/_meta
+{
+   "type" : "web",
+   "crawl" : {
+        "index" : "chapcrawl",
+        "url" : ["http://www.chapman.edu/"],
+        "includeFilter" : ["http://www.chapman.edu/.*"],
+        "maxDepth" : 10,
+        "maxAccessCount" : 5000,
+        "numOfThread" : 5,
+        "interval" : 10,
+        "overwrite" : true,
+        "target" : [
+            {
+                "pattern" : {
+                    "url" : "http://www.chapman.edu/.*",
+                    "mimeType" : "text/html"
+                },
+                "properties" : {
+                    "page_title" : {
+                        "text" : "title"
+                    },
+                    "body" : {
+                        "text" : "body"
+                    },
+                    "bodyAsHtml" : {
+                        "html" : "body"
+                    },
+                    "meta_title" : {
+                        "attr" : "meta[property=og:title]",
+                        "args" : ["content"]
+                    },
+                    "meta_url" : {
+                        "attr" : "meta[property=og:url]",
+                        "args" : ["content"]
+                    },
+                    "description" : {
+                        "attr" : "meta[property=og:description]",
+                        "args" : ["content"]
+                    },
+                    "page_image" : {
+                        "attr" : "meta[property=og:image]",
+                        "args" : ["content"]
+                    },
+                    "canon_url" : {
+                        "attr" : "link[rel=canonical]",
+                        "args" : ["href"]
+                    }
+                }
+            }
+        ]
+   },
+   "schedule" : {
+       "cron" : "40 17 09 * * ?"
+   }
+}
+
+DELETE _river/chap_1/
+
+GET chapcrawl/_search?pretty
+{
+  "query": {
+    "bool" : {
+      "should" : [
+        {
+          "match": {
+            "meta_title": {
+              "query" : "student",
+              "boost" : 7
+            }
+          }
+        },
+        {
+          "match": {
+            "page_title": {
+              "query" : "student",
+              "boost" : 5
+            }
+          }
+        },
+        {
+          "match": {
+            "description": {
+              "query" : "student",
+              "boost" : 3
+            }
+          }
+        },
+        {
+          "match": {
+            "_all": "student"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET events_development/_search?pretty
+{
+  "query":{
+    "dis_max":{
+      "queries":[
+        {
+          "match":{
+            "title.word_start":{
+              "query":"kappa",
+              "operator":"and",
+              "boost":1,
+              "analyzer":"searchkick_word_search"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+//search w/o past events
+GET events_development/_search?pretty
+{
+  "query":{
+    "bool": {
+      "must": {
+        "range" : {
+          "start_datetime": {
+            "gte": "now",
+            "time_zone": "-8:00"
+          }
+        }
+      },
+      "should": [
+        { "match":{
+            "title.word_start":{
+              "query":"student",
+              "operator":"and",
+              "boost":10,
+              "analyzer":"searchkick_search"
+            }
+          }
+        },
+        { "match":{
+            "title.word_start":{
+              "query":"student",
+              "operator":"and",
+              "boost":10,
+              "analyzer":"searchkick_search2"
+            }
+          }
+        },
+        { "match":{
+            "title.word_start":{
+              "query":"student",
+              "operator":"and",
+              "boost":1,
+              "fuzziness":1,
+              "max_expansions":3,
+              "analyzer":"searchkick_search"
+            }
+          }
+        },
+        { "match":{
+            "_all":{
+              "query":"student",
+              "operator":"and",
+              "boost":1,
+              "fuzziness":1,
+              "max_expansions":3,
+              "analyzer":"searchkick_search2"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "size":100000,
+  "from":0
+}
+  //"sort": {
+    //"start_datetime": {
+      //"order": "asc"  
+    //}
+  //},
+
+
+//Search with past events
+GET events_development/_search?pretty
+{
+  "query":{
+    "dis_max":{
+      "queries":[
+        {
+          "match":{
+            "_all":{
+              "query":"student",
+              "operator":"and",
+              "boost":10,
+              "analyzer":"searchkick_search"
+            }
+          }
+        },
+        {
+          "match":{
+            "_all":{
+              "query":"student",
+              "operator":"and",
+              "boost":10,
+              "analyzer":"searchkick_search2"
+            }
+          }
+        },
+        {
+          "match":{
+            "_all":{
+              "query":"student",
+              "operator":"and",
+              "boost":1,
+              "fuzziness":1,
+              "max_expansions":3,
+              "analyzer":"searchkick_search"
+            }
+          }
+        },
+        {
+          "match":{
+            "_all":{
+              "query":"student",
+              "operator":"and",
+              "boost":1,
+              "fuzziness":1,
+              "max_expansions":3,
+              "analyzer":"searchkick_search2"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "size":100000,
+  "from":0
+}
+
+GET events_development/_settings
+
+GET events_development/_search?pretty&size=100&fields=title
+
+DELETE chapcrawl
