@@ -1,3 +1,4 @@
+// Create cluster (database) to house data indices (tables)
 PUT chapcrawl
 {
     "mappings": {
@@ -37,6 +38,7 @@ PUT chapcrawl
     }
 }
 
+// Create index that will house www.chapman.edu data
 PUT chapcrawl/chap_1/_mapping
 {
     "chap_1" : {
@@ -115,7 +117,7 @@ PUT chapcrawl/chap_1/_mapping
   }
 }
 
-
+// Create web crawler and cron job that currently runs at the beginning of each hour
 PUT _river/chap_1/_meta
 {
    "type" : "web",
@@ -168,13 +170,19 @@ PUT _river/chap_1/_meta
             }
         ]
    },
+   // Format documentation located at http://quartz-scheduler.org/api/2.2.0/org/quartz/CronExpression.html
    "schedule" : {
-       "cron" : "40 17 09 * * ?"
+       "cron" : "00 00 * * * ?"
    }
 }
 
+// Delete requests if you wish to delete and remake any of the above with new attributes
 DELETE _river/chap_1/
 
+DELETE chapcrawl
+
+//----------------------------------------------------------------------------------------//
+// Various GET requests to search indexed data manually
 GET chapcrawl/_search?pretty
 {
   "query": {
@@ -361,5 +369,3 @@ GET events_development/_search?pretty
 GET events_development/_settings
 
 GET events_development/_search?pretty&size=100&fields=title
-
-DELETE chapcrawl
