@@ -1,0 +1,13 @@
+.search-results {
+	display: block;
+
+	padding: 50px;
+	overflow: auto;
+	position: relative;
+
+	background: #FFF;
+
+	z-index: 9999;
+
+	outline: 1px solid green;
+}

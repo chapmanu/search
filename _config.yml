@@ -1,0 +1,5 @@
+# Site settings
+title: CU Search
+
+# Serving
+baseurl: "" # does not include hostname

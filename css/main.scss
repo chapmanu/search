@@ -1,0 +1,36 @@
+---
+# Main CSS
+---
+@charset "utf-8";
+
+html, body {
+	height: 100%;
+}
+
+body {
+	background: #ecebe5;
+
+	font-family: "proxima-nova-soft", "proxima-nova-soft-n4", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "proxima-nova", "Helvetica Neue", "Microsoft Sans Serif", sans-serif;
+}
+
+
+header {
+	padding: 15px;
+}
+
+footer {
+	padding: 50px;
+	text-align:center;
+}
+
+
+
+@import "navbar";
+@import "placeholder";
+@import "search-container";
+@import "search-input";
+@import "search-results";
