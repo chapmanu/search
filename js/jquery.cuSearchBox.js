@@ -3,17 +3,23 @@
 
   /****************************************/
   /***** ::: Static Configuration ::: *****/
-  var base_url     = 'https://events.chapman.edu/'
-  var api_endpoint = 'https://events.chapman.edu/events.json';
+  var api_endpoint = 'http://127.0.0.1:9200/_msearch';
 
 
   /*********************************/
   /***** ::: HTML TEMPLATE ::: *****/
   /*********************************/
   var template = '\
-    <div class="search-result-item"> \
-    This is your item! \
-    </div>';
+    <a class="search-result-item" href="{{url}}"> \
+      <div class="result-media"> \
+        <img class="result-thumbnail" src="{{page_image}}" /> \
+      </div> \
+      <div class="result-text"> \
+        <h3 class="result-title">{{page_title}}</h3> \
+        <p class="result-description">{{description}}</p> \
+        <p class="result-url">{{url}}</p> \
+      </div> \
+    </a>';
   // End of the lines must be escaped for correct javsacript syntax. 
 
 
@@ -45,24 +51,6 @@
       });
     };
 
-    var renderEvents = function( data ) {
-      var elems = '';
-
-      for (i=0; i < data.events.length; i++) {
-        elems += buildHTML(data.events[i]);
-      }
-
-      $self.html(elems);
-
-      // Append an appropriate link
-      if ( 0 === data.events.length ) {
-        showNoResultMessage();
-      } else {
-        appendMoreInfoLink();
-      }
-
-    };
-
     var showNoResultMessage = function( ) {
       $self.append('<p>Sorry, there are no matching events to display. <a href="'+base_url+'">View all Chapman University events &raquo;</a></p>');
     };
@@ -72,24 +60,51 @@
       $self.append('<p class="more-cu-events"><a href="'+url+'">View more upcoming events &raquo;</a></p>');
     }
 
-    var getData = function( self ) {
+    var getData = function() {
 
-      // Remove empty parameters
-      if (query_params['group_id'] === '' || query_params['group_id'] == 0) {
-        delete query_params['group_id'];
-      }
+      var search_term = $self.val();
+
+      var chap_head  = {index: 'chapcrawl'};
+      var chap_body  = {query : {bool : {should : [{match: {meta_title: {query : search_term, boost : 7}}},{match: {page_title: {query : search_term, boost : 5}}},{match: {description: {query : search_term, boost : 3}}},{match: {_all: search_term}}]}}};
+
+      var event_head = {index: 'events_development'};
+      var event_body = {query: {dis_max: {queries: [{match: {"title.word_start": {query: search_term, operator: "and", boost: 7, analyzer: "searchkick_word_search"}}}, {match: {"title.word_start": {query: search_term, operator: "and", boost: 5, fuzziness: 2, max_expansions: 3, analyzer: "searchkick_search"}}}, {match: {"title.word_start": {query: search_term, operator: "and", boost: 5, fuzziness: 2, max_expansions: 3, analyzer: "searchkick_search2"}}}, {match: {"_all": {query: search_term, operator: "and", boost: 3, fuzziness: 2, max_expansions: 3, analyzer: "searchkick_search"}}}, {match: {"_all": {query: search_term, operator: "and", boost: 3, fuzziness: 2, max_expansions: 3, analyzer: "searchkick_search2"}}}]}}, size: 10, from: 0};
+
+      var post_head  = {index: 'posts_development'};
+      var post_body  = {query: {dis_max: {queries: [{match: {"text.word_start": {query: search_term, operator: "and", boost: 7, analyzer: "searchkick_word_search"}}}, {match: {"text.word_start": {query: search_term, operator: "and", boost: 5, fuzziness: 2, max_expansions: 3, analyzer: "searchkick_search"}}}, {match: {"text.word_start": {query: search_term, operator: "and", boost: 5, fuzziness: 2, max_expansions: 3, analyzer: "searchkick_search2"}}}, {match: {"_all": {query: search_term, operator: "and", boost: 3, fuzziness: 2, max_expansions: 3, analyzer: "searchkick_search"}}}, {match: {"_all": {query: search_term, operator: "and", boost: 3, fuzziness: 2, max_expansions: 3, analyzer: "searchkick_search2"}}}]}}, size: 10, from: 0};
 
       return $.ajax({
-        cache: true,
-        dataType: 'json',
         url: api_endpoint,
-        data: query_params
+        type: 'POST',
+        crossDomain: true,
+        dataType: 'json',
+        data: JSON.stringify(chap_head) + '\n' + JSON.stringify(chap_body) + '\n' + JSON.stringify(event_head) + '\n' + JSON.stringify(event_body) + '\n' + JSON.stringify(post_head) + '\n' + JSON.stringify(post_body) + '\n',
+        error: function(jqXHR, textStatus, errorThrown) {
+            var jso = jQuery.parseJSON(jqXHR.responseText);
+            console.log('(' + jqXHR.status + ') ' + errorThrown + ': ' + jso.error);
+        }
       });
+      
     };
 
-    var performSearch = function ( self ) {
-      console.log("Hai");
+    var processResults = function(results) {
+
+      var data = results.responses[0];
+      var elems = '';
+
+      for (i=0; i < data.hits.hits.length; i++) {
+        var item = data.hits.hits[i]['_source'];
+        elems += buildHTML(item);
+      }
+
+      $result_container.html(elems);
     }
+
+    var performSearch = function ( ) {
+
+      getData().then(processResults);
+
+    };
 
 
     /* ::: Main Method ::: */
