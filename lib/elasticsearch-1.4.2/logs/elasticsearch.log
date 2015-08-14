@@ -7983,3 +7983,200 @@ java.net.MalformedURLException: unknown protocol: doi
 [2015-08-13 16:25:12,757][INFO ][cluster.metadata         ] [Mister Two] [events_development_20150813162507512] update_mapping [event] (dynamic)
 [2015-08-13 16:25:18,075][INFO ][cluster.metadata         ] [Mister Two] [events_development_20150813162507512] update_mapping [event] (dynamic)
 [2015-08-13 16:25:23,950][INFO ][cluster.metadata         ] [Mister Two] [events_development_20150813162437818] deleting index
+[2015-08-14 09:26:26,126][INFO ][node                     ] [Grenade] version[1.4.2], pid[32780], build[927caff/2014-12-16T14:11:12Z]
+[2015-08-14 09:26:26,128][INFO ][node                     ] [Grenade] initializing ...
+[2015-08-14 09:26:26,180][INFO ][plugins                  ] [Grenade] loaded [WebPlugin, QuartzPlugin], sites []
+[2015-08-14 09:30:38,498][INFO ][node                     ] [Dougboy] version[1.4.2], pid[35189], build[927caff/2014-12-16T14:11:12Z]
+[2015-08-14 09:30:38,499][INFO ][node                     ] [Dougboy] initializing ...
+[2015-08-14 09:30:38,553][INFO ][plugins                  ] [Dougboy] loaded [WebPlugin, QuartzPlugin], sites []
+[2015-08-14 09:30:40,179][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Dougboy] Creating Scheduler...
+[2015-08-14 09:30:40,204][INFO ][org.quartz.impl.StdSchedulerFactory] Using default implementation for ThreadExecutor
+[2015-08-14 09:30:40,205][INFO ][org.quartz.simpl.SimpleThreadPool] Job execution threads will use class loader of thread: main
+[2015-08-14 09:30:40,219][INFO ][org.quartz.core.SchedulerSignalerImpl] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2015-08-14 09:30:40,221][INFO ][org.quartz.core.QuartzScheduler] Quartz Scheduler v.2.2.0 created.
+[2015-08-14 09:30:40,222][INFO ][org.quartz.simpl.RAMJobStore] RAMJobStore initialized.
+[2015-08-14 09:30:40,223][INFO ][org.quartz.core.QuartzScheduler] Scheduler meta-data: Quartz Scheduler (v2.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2015-08-14 09:30:40,223][INFO ][org.quartz.impl.StdSchedulerFactory] Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+[2015-08-14 09:30:40,223][INFO ][org.quartz.impl.StdSchedulerFactory] Quartz scheduler version: 2.2.0
+[2015-08-14 09:30:41,185][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Creating S2Container...
+[2015-08-14 09:30:41,217][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Version of s2-framework is 2.4.46.
+[2015-08-14 09:30:41,217][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Version of s2-extension is 2.4.46.
+[2015-08-14 09:30:41,218][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Version of s2-tiger is 2.4.46.
+[2015-08-14 09:30:42,378][WARN ][org.seasar.framework.container.assembler.BindingTypeShouldDef] Skip setting property, because property(client) of org.codelibs.elasticsearch.web.config.RiverConfig not found
+[2015-08-14 09:30:42,660][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Running on [ENV]product, [DEPLOY MODE]Cool Deploy
+[2015-08-14 09:30:42,725][INFO ][node                     ] [Dougboy] initialized
+[2015-08-14 09:30:42,726][INFO ][node                     ] [Dougboy] starting ...
+[2015-08-14 09:30:42,727][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Dougboy] Starting Scheduler...
+[2015-08-14 09:30:42,728][INFO ][org.quartz.core.QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+[2015-08-14 09:30:42,728][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Starting S2Container...
+[2015-08-14 09:30:42,831][INFO ][transport                ] [Dougboy] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/10.141.130.39:9300]}
+[2015-08-14 09:30:42,840][DEBUG][action.admin.cluster.health] [Dougboy] no known master node, scheduling a retry
+[2015-08-14 09:30:42,860][INFO ][discovery                ] [Dougboy] elasticsearch/TKswMwpaS0Csek2eoTduSw
+[2015-08-14 09:30:44,922][INFO ][node                     ] [Dougboy] stopping ...
+[2015-08-14 09:30:44,925][WARN ][org.codelibs.elasticsearch.web.service.S2ContainerService] The cluster is not available.
+org.elasticsearch.node.NodeClosedException: node closed [Dougboy][TKswMwpaS0Csek2eoTduSw][SMC-MBOOKP13-02][inet[/10.141.130.39:9300]]
+	at org.elasticsearch.action.support.master.TransportMasterNodeOperationAction$4.onClusterServiceClose(TransportMasterNodeOperationAction.java:159)
+	at org.elasticsearch.cluster.ClusterStateObserver$ObserverClusterStateListener.onClose(ClusterStateObserver.java:225)
+	at org.elasticsearch.cluster.service.InternalClusterService.doStop(InternalClusterService.java:155)
+	at org.elasticsearch.common.component.AbstractLifecycleComponent.stop(AbstractLifecycleComponent.java:105)
+	at org.elasticsearch.node.internal.InternalNode.stop(InternalNode.java:298)
+	at org.elasticsearch.node.internal.InternalNode.close(InternalNode.java:320)
+	at org.elasticsearch.bootstrap.Bootstrap$1.run(Bootstrap.java:75)
+[2015-08-14 09:30:44,946][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Dougboy] Stopping Scheduler...
+[2015-08-14 09:30:44,946][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Stopping S2Container...
+[2015-08-14 09:30:44,946][INFO ][node                     ] [Dougboy] stopped
+[2015-08-14 09:30:44,946][INFO ][node                     ] [Dougboy] closing ...
+[2015-08-14 09:30:44,955][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Dougboy] Closing Scheduler...
+[2015-08-14 09:30:44,956][INFO ][org.quartz.core.QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED shutting down.
+[2015-08-14 09:30:44,956][INFO ][org.quartz.core.QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED paused.
+[2015-08-14 09:30:45,241][INFO ][org.quartz.core.QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+[2015-08-14 09:30:45,241][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Closing S2Container...
+[2015-08-14 09:30:45,245][INFO ][node                     ] [Dougboy] closed
+[2015-08-14 09:31:11,944][INFO ][node                     ] [Tyger Tiger] version[1.4.2], pid[35473], build[927caff/2014-12-16T14:11:12Z]
+[2015-08-14 09:31:11,945][INFO ][node                     ] [Tyger Tiger] initializing ...
+[2015-08-14 09:31:12,006][INFO ][plugins                  ] [Tyger Tiger] loaded [WebPlugin, QuartzPlugin], sites []
+[2015-08-14 09:31:13,794][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Tyger Tiger] Creating Scheduler...
+[2015-08-14 09:31:13,820][INFO ][org.quartz.impl.StdSchedulerFactory] Using default implementation for ThreadExecutor
+[2015-08-14 09:31:13,822][INFO ][org.quartz.simpl.SimpleThreadPool] Job execution threads will use class loader of thread: main
+[2015-08-14 09:31:13,835][INFO ][org.quartz.core.SchedulerSignalerImpl] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2015-08-14 09:31:13,836][INFO ][org.quartz.core.QuartzScheduler] Quartz Scheduler v.2.2.0 created.
+[2015-08-14 09:31:13,837][INFO ][org.quartz.simpl.RAMJobStore] RAMJobStore initialized.
+[2015-08-14 09:31:13,837][INFO ][org.quartz.core.QuartzScheduler] Scheduler meta-data: Quartz Scheduler (v2.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2015-08-14 09:31:13,838][INFO ][org.quartz.impl.StdSchedulerFactory] Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+[2015-08-14 09:31:13,838][INFO ][org.quartz.impl.StdSchedulerFactory] Quartz scheduler version: 2.2.0
+[2015-08-14 09:31:14,815][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Creating S2Container...
+[2015-08-14 09:31:14,907][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Version of s2-framework is 2.4.46.
+[2015-08-14 09:31:14,909][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Version of s2-extension is 2.4.46.
+[2015-08-14 09:31:14,909][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Version of s2-tiger is 2.4.46.
+[2015-08-14 09:31:15,734][WARN ][org.seasar.framework.container.assembler.BindingTypeShouldDef] Skip setting property, because property(client) of org.codelibs.elasticsearch.web.config.RiverConfig not found
+[2015-08-14 09:31:15,967][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Running on [ENV]product, [DEPLOY MODE]Cool Deploy
+[2015-08-14 09:31:16,028][INFO ][node                     ] [Tyger Tiger] initialized
+[2015-08-14 09:31:16,028][INFO ][node                     ] [Tyger Tiger] starting ...
+[2015-08-14 09:31:16,029][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Tyger Tiger] Starting Scheduler...
+[2015-08-14 09:31:16,029][INFO ][org.quartz.core.QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+[2015-08-14 09:31:16,029][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Starting S2Container...
+[2015-08-14 09:31:16,135][INFO ][transport                ] [Tyger Tiger] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/10.141.130.39:9300]}
+[2015-08-14 09:31:16,142][DEBUG][action.admin.cluster.health] [Tyger Tiger] no known master node, scheduling a retry
+[2015-08-14 09:31:16,156][INFO ][discovery                ] [Tyger Tiger] elasticsearch/j5JI3JnsTPSoanfOpMzqgQ
+[2015-08-14 09:31:19,945][INFO ][cluster.service          ] [Tyger Tiger] new_master [Tyger Tiger][j5JI3JnsTPSoanfOpMzqgQ][SMC-MBOOKP13-02][inet[/10.141.130.39:9300]], reason: zen-disco-join (elected_as_master)
+[2015-08-14 09:31:19,959][INFO ][http                     ] [Tyger Tiger] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/10.141.130.39:9200]}
+[2015-08-14 09:31:19,960][INFO ][node                     ] [Tyger Tiger] started
+[2015-08-14 09:31:19,970][INFO ][gateway                  ] [Tyger Tiger] recovered [0] indices into cluster_state
+[2015-08-14 09:31:20,416][INFO ][cluster.metadata         ] [Tyger Tiger] [robot] creating index, cause [api], shards [5]/[1], mappings []
+[2015-08-14 09:31:20,691][INFO ][cluster.metadata         ] [Tyger Tiger] [robot] create_mapping [queue]
+[2015-08-14 09:31:20,748][INFO ][cluster.metadata         ] [Tyger Tiger] [robot] create_mapping [filter]
+[2015-08-14 09:31:20,763][INFO ][cluster.metadata         ] [Tyger Tiger] [robot] create_mapping [data]
+[2015-08-14 09:31:20,776][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Create an index and mapping for robot.
+[2015-08-14 09:31:23,757][INFO ][cluster.metadata         ] [Tyger Tiger] [chapcrawl] creating index, cause [api], shards [5]/[1], mappings [chap_1]
+[2015-08-14 09:31:23,902][INFO ][node                     ] [Tyger Tiger] stopping ...
+[2015-08-14 09:31:23,951][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Tyger Tiger] Stopping Scheduler...
+[2015-08-14 09:31:23,951][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Stopping S2Container...
+[2015-08-14 09:31:23,952][INFO ][node                     ] [Tyger Tiger] stopped
+[2015-08-14 09:31:23,952][INFO ][node                     ] [Tyger Tiger] closing ...
+[2015-08-14 09:31:23,955][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Tyger Tiger] Closing Scheduler...
+[2015-08-14 09:31:23,955][INFO ][org.quartz.core.QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED shutting down.
+[2015-08-14 09:31:23,955][INFO ][org.quartz.core.QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED paused.
+[2015-08-14 09:31:24,375][INFO ][org.quartz.core.QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+[2015-08-14 09:31:24,375][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Closing S2Container...
+[2015-08-14 09:31:24,378][INFO ][node                     ] [Tyger Tiger] closed
+[2015-08-14 09:32:05,665][INFO ][node                     ] [Dionysus] version[1.4.2], pid[36029], build[927caff/2014-12-16T14:11:12Z]
+[2015-08-14 09:32:05,666][INFO ][node                     ] [Dionysus] initializing ...
+[2015-08-14 09:32:05,715][INFO ][plugins                  ] [Dionysus] loaded [WebPlugin, QuartzPlugin], sites []
+[2015-08-14 09:32:07,048][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Dionysus] Creating Scheduler...
+[2015-08-14 09:32:07,072][INFO ][org.quartz.impl.StdSchedulerFactory] Using default implementation for ThreadExecutor
+[2015-08-14 09:32:07,073][INFO ][org.quartz.simpl.SimpleThreadPool] Job execution threads will use class loader of thread: main
+[2015-08-14 09:32:07,083][INFO ][org.quartz.core.SchedulerSignalerImpl] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2015-08-14 09:32:07,085][INFO ][org.quartz.core.QuartzScheduler] Quartz Scheduler v.2.2.0 created.
+[2015-08-14 09:32:07,086][INFO ][org.quartz.simpl.RAMJobStore] RAMJobStore initialized.
+[2015-08-14 09:32:07,087][INFO ][org.quartz.core.QuartzScheduler] Scheduler meta-data: Quartz Scheduler (v2.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2015-08-14 09:32:07,087][INFO ][org.quartz.impl.StdSchedulerFactory] Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+[2015-08-14 09:32:07,087][INFO ][org.quartz.impl.StdSchedulerFactory] Quartz scheduler version: 2.2.0
+[2015-08-14 09:32:08,245][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Creating S2Container...
+[2015-08-14 09:32:08,281][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Version of s2-framework is 2.4.46.
+[2015-08-14 09:32:08,283][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Version of s2-extension is 2.4.46.
+[2015-08-14 09:32:08,284][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Version of s2-tiger is 2.4.46.
+[2015-08-14 09:32:09,157][WARN ][org.seasar.framework.container.assembler.BindingTypeShouldDef] Skip setting property, because property(client) of org.codelibs.elasticsearch.web.config.RiverConfig not found
+[2015-08-14 09:32:09,412][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Running on [ENV]product, [DEPLOY MODE]Cool Deploy
+[2015-08-14 09:32:09,516][INFO ][node                     ] [Dionysus] initialized
+[2015-08-14 09:32:09,516][INFO ][node                     ] [Dionysus] starting ...
+[2015-08-14 09:32:09,516][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Dionysus] Starting Scheduler...
+[2015-08-14 09:32:09,517][INFO ][org.quartz.core.QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+[2015-08-14 09:32:09,517][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Starting S2Container...
+[2015-08-14 09:32:09,603][INFO ][transport                ] [Dionysus] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/10.141.130.39:9300]}
+[2015-08-14 09:32:09,613][DEBUG][action.admin.cluster.health] [Dionysus] no known master node, scheduling a retry
+[2015-08-14 09:32:09,634][INFO ][discovery                ] [Dionysus] elasticsearch/CneZtyBkT02oKBbPIAQq_g
+[2015-08-14 09:32:13,407][INFO ][cluster.service          ] [Dionysus] new_master [Dionysus][CneZtyBkT02oKBbPIAQq_g][SMC-MBOOKP13-02][inet[/10.141.130.39:9300]], reason: zen-disco-join (elected_as_master)
+[2015-08-14 09:32:13,426][INFO ][http                     ] [Dionysus] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/10.141.130.39:9200]}
+[2015-08-14 09:32:13,426][INFO ][node                     ] [Dionysus] started
+[2015-08-14 09:32:14,123][INFO ][gateway                  ] [Dionysus] recovered [2] indices into cluster_state
+[2015-08-14 09:33:46,364][INFO ][cluster.metadata         ] [Dionysus] [chapcrawl] deleting index
+[2015-08-14 09:34:00,661][INFO ][cluster.metadata         ] [Dionysus] [chapcrawl] creating index, cause [api], shards [5]/[1], mappings [chap_1]
+[2015-08-14 09:40:12,740][INFO ][node                     ] [Dionysus] stopping ...
+[2015-08-14 09:40:12,786][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Dionysus] Stopping Scheduler...
+[2015-08-14 09:40:12,786][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Stopping S2Container...
+[2015-08-14 09:40:12,787][INFO ][node                     ] [Dionysus] stopped
+[2015-08-14 09:40:12,787][INFO ][node                     ] [Dionysus] closing ...
+[2015-08-14 09:40:12,789][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Dionysus] Closing Scheduler...
+[2015-08-14 09:40:12,789][INFO ][org.quartz.core.QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED shutting down.
+[2015-08-14 09:40:12,789][INFO ][org.quartz.core.QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED paused.
+[2015-08-14 09:40:13,254][INFO ][org.quartz.core.QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+[2015-08-14 09:40:13,254][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Closing S2Container...
+[2015-08-14 09:40:13,258][INFO ][node                     ] [Dionysus] closed
+[2015-08-14 09:40:15,096][INFO ][node                     ] [Marius St. Croix] version[1.4.2], pid[40666], build[927caff/2014-12-16T14:11:12Z]
+[2015-08-14 09:40:15,096][INFO ][node                     ] [Marius St. Croix] initializing ...
+[2015-08-14 09:40:15,139][INFO ][plugins                  ] [Marius St. Croix] loaded [WebPlugin, QuartzPlugin], sites []
+[2015-08-14 09:40:16,481][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Marius St. Croix] Creating Scheduler...
+[2015-08-14 09:40:16,505][INFO ][org.quartz.impl.StdSchedulerFactory] Using default implementation for ThreadExecutor
+[2015-08-14 09:40:16,507][INFO ][org.quartz.simpl.SimpleThreadPool] Job execution threads will use class loader of thread: main
+[2015-08-14 09:40:16,516][INFO ][org.quartz.core.SchedulerSignalerImpl] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2015-08-14 09:40:16,519][INFO ][org.quartz.core.QuartzScheduler] Quartz Scheduler v.2.2.0 created.
+[2015-08-14 09:40:16,520][INFO ][org.quartz.simpl.RAMJobStore] RAMJobStore initialized.
+[2015-08-14 09:40:16,521][INFO ][org.quartz.core.QuartzScheduler] Scheduler meta-data: Quartz Scheduler (v2.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2015-08-14 09:40:16,521][INFO ][org.quartz.impl.StdSchedulerFactory] Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+[2015-08-14 09:40:16,521][INFO ][org.quartz.impl.StdSchedulerFactory] Quartz scheduler version: 2.2.0
+[2015-08-14 09:40:17,532][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Creating S2Container...
+[2015-08-14 09:40:17,563][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Version of s2-framework is 2.4.46.
+[2015-08-14 09:40:17,564][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Version of s2-extension is 2.4.46.
+[2015-08-14 09:40:17,565][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Version of s2-tiger is 2.4.46.
+[2015-08-14 09:40:18,572][WARN ][org.seasar.framework.container.assembler.BindingTypeShouldDef] Skip setting property, because property(client) of org.codelibs.elasticsearch.web.config.RiverConfig not found
+[2015-08-14 09:40:19,044][INFO ][org.seasar.framework.container.factory.SingletonS2ContainerFactory] Running on [ENV]product, [DEPLOY MODE]Cool Deploy
+[2015-08-14 09:40:19,205][INFO ][node                     ] [Marius St. Croix] initialized
+[2015-08-14 09:40:19,206][INFO ][node                     ] [Marius St. Croix] starting ...
+[2015-08-14 09:40:19,207][INFO ][org.codelibs.elasticsearch.quartz.service.ScheduleService] [Marius St. Croix] Starting Scheduler...
+[2015-08-14 09:40:19,208][INFO ][org.quartz.core.QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+[2015-08-14 09:40:19,208][INFO ][org.codelibs.elasticsearch.web.service.S2ContainerService] Starting S2Container...
+[2015-08-14 09:40:19,321][INFO ][transport                ] [Marius St. Croix] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/10.141.130.39:9300]}
+[2015-08-14 09:40:19,334][DEBUG][action.admin.cluster.health] [Marius St. Croix] no known master node, scheduling a retry
+[2015-08-14 09:40:19,350][INFO ][discovery                ] [Marius St. Croix] elasticsearch/jjEG7pwWRr227t2-KHlzJw
+[2015-08-14 09:40:23,129][INFO ][cluster.service          ] [Marius St. Croix] new_master [Marius St. Croix][jjEG7pwWRr227t2-KHlzJw][SMC-MBOOKP13-02][inet[/10.141.130.39:9300]], reason: zen-disco-join (elected_as_master)
+[2015-08-14 09:40:23,151][INFO ][http                     ] [Marius St. Croix] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/10.141.130.39:9200]}
+[2015-08-14 09:40:23,151][INFO ][node                     ] [Marius St. Croix] started
+[2015-08-14 09:40:23,846][INFO ][gateway                  ] [Marius St. Croix] recovered [2] indices into cluster_state

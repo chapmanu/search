@@ -1,3 +1,4 @@
 lib/elasticsearch-1.4.2/data/elasticsearch/*
 _site/*
 .sass-cache/*
+*.log
