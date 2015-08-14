@@ -94,10 +94,19 @@
 
       for (i=0; i < data.hits.hits.length; i++) {
         var item = data.hits.hits[i]['_source'];
-        elems += buildHTML(item);
+        elems += buildHTML(filterItem(item));
       }
 
       $result_container.html(elems);
+    }
+
+    // Takes an object in, returns the same object with some stuff filtered
+    var filterItem = function(item) {
+      if(item.page_title){
+        item.page_title = item.page_title.replace('| Chapman University', '');
+      }
+
+      return item;
     }
 
     var performSearch = function ( ) {
