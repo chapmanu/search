@@ -59,8 +59,21 @@
       $self.append('<p class="more-cu-events"><a href="'+url+'">View more upcoming events &raquo;</a></p>');
     }
 
-    var getData = function() {
+    var getData = function() {      
+      return $.ajax({
+        url: api_endpoint,
+        type: 'POST',
+        crossDomain: true,
+        dataType: 'json',
+        data: buildQuery(),
+        error: function(jqXHR, textStatus, errorThrown) {
+            var jso = jQuery.parseJSON(jqXHR.responseText);
+            console.log('(' + jqXHR.status + ') ' + errorThrown + ': ' + jso.error);
+        }
+      });
+    };
 
+    var buildQuery = function() {
       var search_term = $self.val();
 
       var chap_head  = {index: 'chapcrawl'};
@@ -72,18 +85,7 @@
       var post_head  = {index: 'posts_development'};
       var post_body  = {query: {dis_max: {queries: [{match: {"text.word_start": {query: search_term, operator: "and", boost: 7, analyzer: "searchkick_word_search"}}}, {match: {"text.word_start": {query: search_term, operator: "and", boost: 5, fuzziness: 2, max_expansions: 3, analyzer: "searchkick_search"}}}, {match: {"text.word_start": {query: search_term, operator: "and", boost: 5, fuzziness: 2, max_expansions: 3, analyzer: "searchkick_search2"}}}, {match: {"_all": {query: search_term, operator: "and", boost: 3, fuzziness: 2, max_expansions: 3, analyzer: "searchkick_search"}}}, {match: {"_all": {query: search_term, operator: "and", boost: 3, fuzziness: 2, max_expansions: 3, analyzer: "searchkick_search2"}}}]}}, size: 5, from: 0};
 
-      return $.ajax({
-        url: api_endpoint,
-        type: 'POST',
-        crossDomain: true,
-        dataType: 'json',
-        data: JSON.stringify(chap_head) + '\n' + JSON.stringify(chap_body) + '\n' + JSON.stringify(event_head) + '\n' + JSON.stringify(event_body) + '\n' + JSON.stringify(post_head) + '\n' + JSON.stringify(post_body) + '\n',
-        error: function(jqXHR, textStatus, errorThrown) {
-            var jso = jQuery.parseJSON(jqXHR.responseText);
-            console.log('(' + jqXHR.status + ') ' + errorThrown + ': ' + jso.error);
-        }
-      });
-      
+      return JSON.stringify(chap_head) + '\n' + JSON.stringify(chap_body) + '\n' + JSON.stringify(event_head) + '\n' + JSON.stringify(event_body) + '\n' + JSON.stringify(post_head) + '\n' + JSON.stringify(post_body) + '\n';
     };
 
     var processResults = function(results) {
