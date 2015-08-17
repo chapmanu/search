@@ -12,10 +12,10 @@
   var template = '\
     <a class="search-result-item" href="{{url}}"> \
       <div class="result-media"> \
-        <img class="result-thumbnail" src="{{page_image}}" /> \
+        <img class="result-thumbnail" src="{{image}}" /> \
       </div> \
       <div class="result-text"> \
-        <h3 class="result-title">{{page_title}}</h3> \
+        <h3 class="result-title">{{title}}</h3> \
         <p class="result-description">{{description}}</p> \
         <p class="result-url">{{url}}</p> \
       </div> \
@@ -89,12 +89,13 @@
 
     var processResults = function(results) {
 
-      var data = results.responses[0];
+      var data = results.responses[2];
+      console.log(data);
       var elems = '';
 
       for (i=0; i < data.hits.hits.length; i++) {
-        var item = data.hits.hits[i]['_source'];
-        elems += buildHTML(filterItem(item));
+        var item = buildPostResult(data.hits.hits[i]['_source']);
+        elems += buildHTML(item);
       }
 
       $result_container.html(elems);
@@ -132,8 +133,12 @@
 
     // Takes an object in, returns the same object with some stuff filtered
     var filterItem = function(item) {
-      if(item.page_title){
+      if (item.page_title){
         item.page_title = item.page_title.replace('| Chapman University', '');
+      }
+
+      if (!item.image) {
+        item.image = 'https://blogs.chapman.edu/wp-content/themes/cu-wp-template-1.2/img/brand/cu_general/regular_stories/CUgeneral_default04bw.jpg';
       }
 
       return item;
