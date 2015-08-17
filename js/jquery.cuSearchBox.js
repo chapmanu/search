@@ -32,15 +32,14 @@
 
     /* ::: Instance Variables ::: */
     var settings = $.extend({
-      group_id: this.data('group-id'),
     }, options );
 
     var query_params = {
       group_id : settings.group_id,
     };
 
-    var $result_container = $('<div class="search-results"></div>');
-
+    var $result_container     = $('<div class="search-results"></div>');
+    var $result_type_selector = $(settings['selector-id']);
 
     /* ::: Instance Methods ::: */
 
@@ -89,16 +88,30 @@
 
     var processResults = function(results) {
 
-      var data = results.responses[2];
-      console.log(data);
+      var index = parseInt($result_type_selector.val());
+      var data = results.responses[index];
       var elems = '';
 
       for (i=0; i < data.hits.hits.length; i++) {
-        var item = buildPostResult(data.hits.hits[i]['_source']);
+        var item = fastAndDirty(data.hits.hits[i]['_source'], index);
         elems += buildHTML(item);
       }
 
       $result_container.html(elems);
+    }
+
+    var fastAndDirty = function(item, index) {
+      switch(index){
+        case 0:
+          return buildWebResult(item);
+          break;
+        case 1:
+          return buildEventResult(item);
+          break;
+        case 2:
+          return buildPostResult(item);
+          break;
+      }
     }
 
     // Takes in raw data, returns formatted result
@@ -144,12 +157,18 @@
       return item;
     }
 
-    var performSearch = function ( ) {
-
-      getData().then(processResults);
-
+    var performSearch = function() {
+      getData().then(processResults).then(showResults);
+      //showResults()
     };
 
+    var showResults = function() {
+      $result_container.fadeIn(100);
+    }
+  
+    var hideResults = function() {
+      $result_container.fadeOut(100);
+    }
 
     /* ::: Main Method ::: */
     
@@ -158,7 +177,18 @@
 
     // Bind actions
     $self.on('input', debounce(performSearch, 100, false));
+    $result_type_selector.on('change', performSearch);
 
+    // Close results on esc key
+    $('body').on('keyup', function(e) {
+      if (e.which == 27) hideResults();
+    });
+
+    // Close results on click outside of result box
+    $self.on('blur', hideResults);
+
+    // Show results on focus
+    $self.on('focus', showResults);
 
     // It's the jQuery way! (Allows further command chaining)
     return this;

@@ -1,5 +1,4 @@
 
 jQuery(document).ready(function ($) {
-	$('.search-input').cuSearchBox();
-  $('.search-input').val('student').trigger('input');
+	$('.search-input').cuSearchBox({'selector-id': '#cu-search-menu-value'});
 });
