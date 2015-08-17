@@ -1,10 +1,10 @@
-.search-select {
+.select-container {
   display: block;
   float: left;
   overflow: hidden;
   width: 100px;
 
-  background: url(/img/arrow_down.svg) no-repeat right #ddd;
+  background: url(/img/arrow_down.svg) no-repeat right #DDD;
   background-size: 15px 15px;
   background-position: 95% 50%;
   border: 1px solid #ccc;
@@ -12,13 +12,27 @@
 
   box-sizing: border-box;
 
+
+  &:hover {
+    background-color: darken(#DDD, 5%);
+  }
+
   .select-menu {
-    display: inline;
+    display: block;
     background: transparent;
     padding: 6px;
     font-size: 12px;
     border: 0;
     border-radius: 0;
     -webkit-appearance: none;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
