@@ -1,0 +1,24 @@
+.search-select {
+  display: block;
+  float: left;
+  overflow: hidden;
+  width: 100px;
+
+  background: url(/img/arrow_down.svg) no-repeat right #ddd;
+  background-size: 15px 15px;
+  background-position: 95% 50%;
+  border: 1px solid #ccc;
+  border-radius: 3px 0 0 3px;
+
+  box-sizing: border-box;
+
+  .select-menu {
+    display: inline;
+    background: transparent;
+    padding: 6px;
+    font-size: 12px;
+    border: 0;
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+}
