@@ -21,7 +21,7 @@
     .result-media {
       width: 15%;
       float: left;
-      padding: 8px;
+      padding: 5px;
       box-sizing: border-box;
     }
 
@@ -32,7 +32,7 @@
     .result-text {
       width: 85%;
       float: right;
-      padding: 8px;
+      padding: 5px 8px;
       box-sizing: border-box;
 
     }
@@ -41,7 +41,7 @@
       color: #353430;
       font-weight: 500;
       font-size: 14px;
-      margin: 0 0 5px 0;
+      margin: 0;
       line-height: 18px;
     }
 
@@ -58,7 +58,7 @@
     .result-url {
       font-size: 10px;
       color: #407892;
-      padding: 3px 0 0 0;
+      padding: 6px 0 0 0;
       margin: 0;
     }
 
