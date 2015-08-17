@@ -39,7 +39,7 @@
       group_id : settings.group_id,
     };
 
-    var $result_container = $('<div class="search-results">SEARCH RESULTS HERE</div>');
+    var $result_container = $('<div class="search-results"></div>');
 
 
     /* ::: Instance Methods ::: */
@@ -157,7 +157,7 @@
     $self.after($result_container);
 
     // Bind actions
-    $self.on('input', debounce(performSearch, 600, false));
+    $self.on('input', debounce(performSearch, 100, false));
 
 
     // It's the jQuery way! (Allows further command chaining)
