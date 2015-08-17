@@ -100,6 +100,36 @@
       $result_container.html(elems);
     }
 
+    // Takes in raw data, returns formatted result
+    var buildWebResult = function(item) {
+      return filterItem({
+        title :       item.page_title,
+        image :       item.page_image,
+        description : item.description,
+        url :         item.url
+      });
+    };
+
+    // Takes in raw data, returns formatted result
+    var buildEventResult = function(item) {
+      return filterItem({
+        title :       item.title,
+        image :       (item.cover_photo) ? item.cover_photo.square.url : '',
+        description : item.description,
+        url :         'https://events.chapman.edu/' + item.id
+      });
+    };
+
+    // Takes in raw data, returns formatted result
+    var buildPostResult = function(item) {
+      return filterItem({
+        title :       item.text,
+        image :       (item.photos.length) ? item.photos[0].url : '',
+        description : 'By ' + item.author.display_name,
+        url :         item.external_uri
+      });
+    };
+
     // Takes an object in, returns the same object with some stuff filtered
     var filterItem = function(item) {
       if(item.page_title){
