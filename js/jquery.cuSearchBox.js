@@ -41,7 +41,7 @@
       return buildHTML(filterItem({
         title :       item.page_title,
         image :       item.page_image,
-        description : $(item.description).text(),
+        description : item.description,
         url :         item.url
       }));
     }
@@ -59,7 +59,7 @@
       return buildHTML(filterItem({
         title :       item.title,
         image :       (item.cover_photo) ? item.cover_photo.square.url : '',
-        description : $(item.description).text(),
+        description : item.description,
         url :         'https://events.chapman.edu/' + item.id
       }));
     }
