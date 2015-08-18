@@ -14,8 +14,10 @@
     background: #F5F5F5;
     padding:8px 5px;
 
+    &:focus,
     &:hover {
       background: #FFF;
+      outline: none;
     }
 
     .result-media {
@@ -45,6 +47,7 @@
       line-height: 18px;
     }
 
+    &:focus .result-title,
     &:hover .result-title {
       color: #A82439;
     }
@@ -62,6 +65,7 @@
       margin: 0;
     }
 
+    &:focus .result-url,
     &:hover .result-url {
       text-decoration: underline;
     }

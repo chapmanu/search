@@ -198,11 +198,41 @@
 
     /* ::: Main Method ::: */
     
+    // Press Enter to perform search
+    $self.on('keydown', function(e) {
+      if (e.which == 13) performSearch();
+    });
+
     // Append result container
     $self.after($result_container);
 
     // Bind actions
     $self.on('input', debounce(performSearch, 100, false));
+
+    // Select first result with down arrow key from search box
+    $self.on('keydown', function(e) {
+      if(e.which == 40){
+        $(".search-result-item").first().focus();
+        e.preventDefault();
+      }
+    });
+
+    // Select results with up & down arrow keys
+    $result_container.on('keydown', function(e) {
+      var $current_focus = $(".search-result-item:focus");
+
+      if(e.which == 40){
+        $current_focus.next().focus();
+        e.preventDefault();
+      }
+      if(e.which == 38) {
+        $current_focus.prev().focus();
+        if(!$current_focus.prev().length) $self.focus();
+
+        e.preventDefault();
+      }
+      
+    });
 
     // Close results on esc key
     $('body').on('keyup', function(e) {
@@ -210,7 +240,7 @@
     });
 
     // Close results on click outside of result box
-    $self.on('blur', hideResults);
+    if(!$(".search-result-item:focus")) $self.on('blur', hideResults);
 
     // Show results on focus
     $self.on('focus', showResults);
