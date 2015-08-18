@@ -108,7 +108,7 @@
   /******************************************/
   $.fn.cuSearchBox = function( options ) {
     var $self = this;
-
+    var listener_on = false;
 
     /* ::: Instance Variables ::: */
     var settings = $.extend({
@@ -141,8 +141,6 @@
       var search_term = $self.val();
 
       return types_to_search.map(function(type) {
-        console.log('We are searching for a: '+type);
-        console.log(resultHandlers[type].buildQuery(search_term));
         return resultHandlers[type].buildQuery(search_term);
       }).join('');
     };
@@ -170,11 +168,8 @@
       // all_results = all_results.each by score;
 
       var html = all_results.map(function(item) {
-        console.log("Trying to process a: "+item.type_of_result);
         return resultHandlers[item.type_of_result].buildResult(item['_source']);
       }).join('');
-
-      console.log(all_results);
 
       $result_container.html(html);
 
@@ -186,61 +181,82 @@
 
     var showResults = function() {
       $result_container.fadeIn(100);
+      if(!listener_on){
+        // Times out to avoid results disappearing on click of search input
+        setTimeout(function(){
+          $(document).on('click', closeOnClick);
+          $(document).on('keydown', processKeyboardInput);
+        }, 200);
+      }
+
+      listener_on = true;
     };
-  
+
     var hideResults = function() {
+      listener_on = false;
       $result_container.fadeOut(100);
+      $(document).off('click', closeOnClick);
+      $(document).off('keydown', processKeyboardInput);
+    };
+
+
+    var moveDown = function() {
+      var $current_focus = $(".search-result-item:focus");
+      if(!$current_focus.length){
+        $(".search-result-item").first().focus();
+      } else {
+        $current_focus.next().focus();
+      }
+
+    }
+
+    var moveUp = function() {
+      var $current_focus = $(".search-result-item:focus");
+      $current_focus.prev().focus();
+      if(!$current_focus.prev().length) $self.focus();
+    }
+
+    var closeOnClick = function(e) {
+      if(!$(e.target).is('.search-input, .search-result-item, .search-results, .select-container, .select-menu')) hideResults();
     };
 
     var clearResults = function() {
       $result_container.html('');
     };
 
+    var processKeyboardInput = function(e) {
+      switch(e.which) {
+        // Enter key
+        case 13:
+          performSearch();
+          break;
+
+        // Escape key
+        case 27:
+          hideResults();
+          break;
+
+        // Up arrow key
+        case 38:
+          moveUp();
+          e.preventDefault();
+          break;
+
+        // Down arrow key
+        case 40:
+          moveDown();
+          e.preventDefault();
+          break;
+      }
+    }
+
     /* ::: Main Method ::: */
-    
-    // Press Enter to perform search
-    $self.on('keydown', function(e) {
-      if (e.which == 13) performSearch();
-    });
 
     // Append result container
     $self.after($result_container);
 
     // Bind actions
     $self.on('input', debounce(performSearch, 100, false));
-
-    // Select first result with down arrow key from search box
-    $self.on('keydown', function(e) {
-      if(e.which == 40){
-        $(".search-result-item").first().focus();
-        e.preventDefault();
-      }
-    });
-
-    // Select results with up & down arrow keys
-    $result_container.on('keydown', function(e) {
-      var $current_focus = $(".search-result-item:focus");
-
-      if(e.which == 40){
-        $current_focus.next().focus();
-        e.preventDefault();
-      }
-      if(e.which == 38) {
-        $current_focus.prev().focus();
-        if(!$current_focus.prev().length) $self.focus();
-
-        e.preventDefault();
-      }
-      
-    });
-
-    // Close results on esc key
-    $('body').on('keyup', function(e) {
-      if (e.which == 27) hideResults();
-    });
-
-    // Close results on click outside of result box
-    if(!$(".search-result-item:focus")) $self.on('blur', hideResults);
 
     // Show results on focus
     $self.on('focus', showResults);
