@@ -75,8 +75,8 @@
     buildResult: function(item) {
       return buildHTML(filterItem({
         title :       item.text,
-        image :       (item.photos.length) ? item.photos[0].url : '',
-        description : 'By ' + item.author.display_name,
+        image :       (item.photos) ? item.photos[0].url : '',
+        description : (item.author) ? 'By ' + item.author.display_name : '',
         url :         item.external_uri
       }));
     }
